@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>龍潭中壢兩日遊行程</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --hakka-green: #3A5C3A;
+  --hakka-orange: #E07B39;
+  --hakka-bg: #F8F5EE;
+  --hakka-line-d1: #3A5C3A;
+  --hakka-line-d2: #C0571A;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666;
+  --text-tertiary: #999;
+  --border: rgba(0,0,0,0.12);
+  --border-hover: rgba(0,0,0,0.25);
+  --card-bg: #fff;
+  --bg-secondary: #f3f3f0;
+}
+body {
+  background: var(--hakka-bg);
+  font-family: 'Noto Sans TC', sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+.container { max-width: 680px; margin: 0 auto; }
+h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 22px; font-weight: 500;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  color: var(--hakka-green);
+}
+.subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+.depart-banner {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff;
+  border: 0.5px solid rgba(0,0,0,0.12);
+  border-left: 3px solid var(--hakka-green);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 1.5rem;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.depart-banner strong { color: var(--text-primary); font-weight: 500; }
+.hint {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.day-block { margin-bottom: 2.5rem; }
+.day-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+.day-badge {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 13px; font-weight: 500;
+  padding: 4px 14px; border-radius: 20px;
+  color: #fff; white-space: nowrap;
+}
+.day1 .day-badge { background: var(--hakka-line-d1); }
+.day2 .day-badge { background: var(--hakka-line-d2); }
+.day-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 15px; font-weight: 500;
+  cursor: pointer;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.day-title:hover { border-color: var(--border-hover); }
+.day-title:focus { border-bottom: 1px solid var(--hakka-orange); }
+.timeline { position: relative; padding-left: 28px; }
+.day1 .timeline { color: var(--hakka-line-d1); }
+.day2 .timeline { color: var(--hakka-line-d2); }
+.timeline::before {
+  content: '';
+  position: absolute; left: 9px; top: 10px; bottom: 10px;
+  width: 2px;
+  background: linear-gradient(180deg, currentColor 60%, transparent 100%);
+}
+.stop { position: relative; margin-bottom: 16px; }
+.stop-dot {
+  position: absolute; left: -23px; top: 14px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: currentColor;
+  border: 2px solid var(--hakka-bg);
+  z-index: 1;
+}
+.stop-card {
+  background: var(--card-bg);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: border-color 0.15s;
+}
+.stop-card:hover { border-color: var(--border-hover); }
+.stop-top { display: flex; align-items: flex-start; gap: 10px; }
+.stop-time {
+  font-family: 'Courier New', monospace;
+  font-size: 12px; color: var(--text-secondary);
+  white-space: nowrap; min-width: 95px;
+  cursor: pointer; border-radius: 4px; padding: 2px 4px;
+  outline: none;
+}
+.stop-time:hover { background: var(--bg-secondary); }
+.stop-time:focus { background: var(--bg-secondary); }
+.stop-meta { flex: 1; }
+.stop-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 15px; font-weight: 500;
+  cursor: pointer;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s;
+  outline: none;
+  display: inline;
+}
+.stop-name:hover { border-color: var(--border-hover); }
+.stop-name:focus { border-bottom: 1px solid var(--hakka-orange); }
+.map-link {
+  display: inline-flex; align-items: center; gap: 3px;
+  margin-left: 8px; font-size: 11px;
+  color: var(--hakka-orange);
+  text-decoration: none;
+  opacity: 0.85; transition: opacity 0.15s;
+  vertical-align: middle;
+}
+.map-link:hover { opacity: 1; text-decoration: underline; }
+.stop-desc {
+  font-size: 13px; color: var(--text-secondary);
+  line-height: 1.6; margin-top: 6px;
+  cursor: pointer; border-radius: 4px; padding: 2px 0;
+  outline: none;
+}
+.stop-desc:hover { color: var(--text-primary); }
+.stop-desc:focus { color: var(--text-primary); }
+.coin-tag {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 11px;
+  background: #FFF3E8; color: #A85A1A;
+  border: 0.5px solid #F0B070;
+  border-radius: 10px; padding: 2px 8px;
+  margin-left: 6px; vertical-align: middle;
+}
+.stop-actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 8px; }
+.del-btn {
+  font-size: 12px; padding: 3px 10px;
+  border-radius: 6px; cursor: pointer;
+  border: 0.5px solid #F7C1C1;
+  background: transparent; color: #A32D2D;
+  transition: background 0.15s;
+}
+.del-btn:hover { background: #FCEBEB; }
+.add-stop-row { display: flex; justify-content: center; margin-top: 4px; margin-bottom: 8px; }
+.add-btn {
+  font-size: 12px; padding: 5px 14px;
+  border-radius: 6px; cursor: pointer;
+  border: 0.5px solid var(--border-hover);
+  background: transparent; color: var(--text-secondary);
+  transition: background 0.15s;
+}
+.add-btn:hover { background: var(--bg-secondary); }
+
+@media print {
+  .stop-actions, .add-stop-row, .hint { display: none !important; }
+  body { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>龍潭 · 中壢兩日遊</h1>
+  <p class="subtitle">活魚盛宴 × 客家文創 × 夜市漫步</p>
+
+  <div class="depart-banner">
+    <i class="ti ti-motorbike" style="font-size:18px; color:#3A5C3A; flex-shrink:0;"></i>
+    <span><strong>出發地：板橋江子翠</strong>　騎機車沿台3線南下，約 40–45 公里，車程約 1–1.5 小時可抵龍潭。</span>
+  </div>
+
+  <p class="hint"><i class="ti ti-pencil"></i> 點擊任意欄位即可直接修改時間、地點或描述</p>
+  <div id="app"></div>
+</div>
+
+<script>
+const days = [
+  {
+    id: 'd1', cls: 'day1', badge: 'Day 1',
+    title: '活魚盛宴、美學觀光工廠與中壢夜市',
+    stops: [
+      {
+        time: '10:00　出發',
+        name: '從板橋江子翠出發',
+        map: 'https://maps.app.goo.gl/Kh6t5w28PJ9BDkdr8',
+        coin: false,
+        desc: '騎機車沿台3線南下，途經土城、三峽方向前往龍潭，約 40–45 公里，車程約 1–1.5 小時。建議早上出發避開車流。'
+      },
+      {
+        time: '11:30–13:30',
+        name: '綠野鄉村（石門活魚午餐）',
+        map: 'https://maps.app.goo.gl/YZ9HY7k3LNPNekRr6',
+        coin: false,
+        desc: '抵達龍潭直奔石門活魚一級戰區，用澎湃的活魚料理與在地熱炒為旅程揭開序幕。機車好停，不用擔心停車問題。'
+      },
+      {
+        time: '14:00–17:00',
+        name: '雄獅文具－想像力製造所',
+        map: 'https://maps.app.goo.gl/L4sWoHJtFUYq8B2R6',
+        coin: false,
+        desc: '騎機車約 15 分鐘即可抵達。在隱身於森林中的觀光工廠裡體驗現代美學與有趣的 DIY 手作，製作專屬的彩色筆。'
+      },
+      {
+        time: '17:30–18:30',
+        name: 'Check-in：中壢大飯店',
+        map: 'https://maps.app.goo.gl/XD2FKBaQqSCzPFUi9',
+        coin: false,
+        desc: '騎機車從龍潭前往中壢市區約 25–30 分鐘。先到飯店停好車、放行李、稍作休息與梳洗。（中壢區延平路645號4樓）'
+      },
+      {
+        time: '19:00–',
+        name: '中壢新明夜市 ＆ 市區漫步',
+        map: 'https://maps.app.goo.gl/MXp1EuZ9y7ywR6kz6',
+        coin: false,
+        desc: '從飯店步行約 15–20 分鐘，或騎機車約 5 分鐘。必吃：簡師傅麻辣臭豆腐、溫記豆花、好鮮屋米粉湯、酸辣粉、地瓜球。'
+      }
+    ]
+  },
+  {
+    id: 'd2', cls: 'day2', badge: 'Day 2',
+    title: '客庄漫步、冠軍午餐、買完伴手禮直接回家',
+    stops: [
+      {
+        time: '09:00–11:00',
+        name: '三坑老街 ＆ 大平紅橋',
+        map: 'https://maps.app.goo.gl/ePpTsTPDpFT1BqDy7',
+        coin: false,
+        desc: '退房後騎機車南下龍潭約 20–25 分鐘。趁著早晨天氣涼爽，先到大平紅橋拍紅磚糯米橋綠意美照，再到三坑老街看「黑白洗」洗衫坑，感受百年客庄寧靜。機車可停老街入口停車場。'
+      },
+      {
+        time: '11:30–13:30',
+        name: '亨味食堂（客家料理）',
+        map: 'https://maps.app.goo.gl/bEWoLPyXJe7AeSNt8',
+        coin: true,
+        desc: '逛完老街後騎機車約 5–10 分鐘即到。「客家小炒全國爭霸賽」全國總冠軍！必點：白斬土雞、冠軍客家小炒、客家鹹湯圓。注意：週二公休。'
+      },
+      {
+        time: '13:50–14:20',
+        name: '知味花生軟糖（中正店）',
+        map: 'https://maps.app.goo.gl/Zi2e6NRbgRRN2Ydv9',
+        coin: true,
+        desc: '吃飽後騎機車順路停靠中正路，距離亨味食堂約 10 分鐘。香濃、充滿豆香且完全不黏牙的老字號花生軟糖，用剩餘客家幣換滿伴手禮帶回家。'
+      },
+      {
+        time: '14:20–',
+        name: '賦歸：騎台3線回板橋',
+        map: '',
+        coin: false,
+        desc: '買完軟糖後沿台3線北上，原路騎回板橋江子翠，車程約 1–1.5 小時，順風輕鬆返家，結束充實的活魚與客家文創之旅！'
+      }
+    ]
+  }
+];
+
+function renderApp() {
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  days.forEach((day, di) => {
+    const block = document.createElement('div');
+    block.className = `day-block ${day.cls}`;
+
+    const header = document.createElement('div');
+    header.className = 'day-header';
+    header.innerHTML = `<span class="day-badge">${day.badge}</span>`;
+    const title = document.createElement('span');
+    title.className = 'day-title';
+    title.contentEditable = 'true';
+    title.spellcheck = false;
+    title.textContent = day.title;
+    title.addEventListener('input', () => { day.title = title.textContent; });
+    header.appendChild(title);
+    block.appendChild(header);
+
+    const tl = document.createElement('div');
+    tl.className = 'timeline';
+
+    day.stops.forEach((stop, si) => {
+      const stopEl = document.createElement('div');
+      stopEl.className = 'stop';
+      const dot = document.createElement('div');
+      dot.className = 'stop-dot';
+      stopEl.appendChild(dot);
+
+      const card = document.createElement('div');
+      card.className = 'stop-card';
+      const top = document.createElement('div');
+      top.className = 'stop-top';
+
+      const timeEl = document.createElement('span');
+      timeEl.className = 'stop-time';
+      timeEl.contentEditable = 'true';
+      timeEl.spellcheck = false;
+      timeEl.textContent = stop.time;
+      timeEl.addEventListener('input', () => { stop.time = timeEl.textContent; });
+
+      const meta = document.createElement('div');
+      meta.className = 'stop-meta';
+
+      const nameEl = document.createElement('span');
+      nameEl.className = 'stop-name';
+      nameEl.contentEditable = 'true';
+      nameEl.spellcheck = false;
+      nameEl.textContent = stop.name;
+      nameEl.addEventListener('input', () => { stop.name = nameEl.textContent; });
+      meta.appendChild(nameEl);
+
+      if (stop.coin) {
+        const coinTag = document.createElement('span');
+        coinTag.className = 'coin-tag';
+        coinTag.innerHTML = '<i class="ti ti-coin" style="font-size:12px"></i> 客家幣消費點';
+        meta.appendChild(coinTag);
+      }
+
+      if (stop.map) {
+        const mapLink = document.createElement('a');
+        mapLink.className = 'map-link';
+        mapLink.href = stop.map;
+        mapLink.target = '_blank';
+        mapLink.rel = 'noopener noreferrer';
+        mapLink.innerHTML = '<i class="ti ti-map-pin" style="font-size:13px"></i> 地圖';
+        meta.appendChild(document.createElement('br'));
+        meta.appendChild(mapLink);
+      }
+
+      const desc = document.createElement('div');
+      desc.className = 'stop-desc';
+      desc.contentEditable = 'true';
+      desc.spellcheck = false;
+      desc.textContent = stop.desc;
+      desc.addEventListener('input', () => { stop.desc = desc.textContent; });
+      meta.appendChild(desc);
+
+      top.appendChild(timeEl);
+      top.appendChild(meta);
+      card.appendChild(top);
+
+      const actions = document.createElement('div');
+      actions.className = 'stop-actions';
+      const delBtn = document.createElement('button');
+      delBtn.className = 'del-btn';
+      delBtn.innerHTML = '<i class="ti ti-trash"></i> 刪除此站';
+      delBtn.addEventListener('click', () => {
+        day.stops.splice(si, 1);
+        renderApp();
+      });
+      actions.appendChild(delBtn);
+      card.appendChild(actions);
+
+      stopEl.appendChild(card);
+      tl.appendChild(stopEl);
+    });
+
+    const addRow = document.createElement('div');
+    addRow.className = 'add-stop-row';
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-btn';
+    addBtn.innerHTML = '<i class="ti ti-plus"></i> 新增行程站';
+    addBtn.addEventListener('click', () => {
+      day.stops.push({ time: '00:00', name: '新景點', map: '', coin: false, desc: '點擊此處輸入描述' });
+      renderApp();
+      setTimeout(() => {
+        const allNames = document.querySelectorAll(`.day-block.${day.cls} .stop-name`);
+        if (allNames.length) allNames[allNames.length - 1].focus();
+      }, 50);
+    });
+    addRow.appendChild(addBtn);
+    tl.appendChild(addRow);
+
+    block.appendChild(tl);
+    app.appendChild(block);
+  });
+}
+
+renderApp();
+</script>
+</body>
+</html>
