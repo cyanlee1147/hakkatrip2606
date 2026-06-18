@@ -193,6 +193,7 @@ h1 {
 </div>
 
 <script>
+// Google Maps 搜尋連結格式：https://www.google.com/maps/search/?api=1&query=地名
 const days = [
   {
     id: 'd1', cls: 'day1', badge: 'Day 1',
@@ -201,35 +202,35 @@ const days = [
       {
         time: '10:00　出發',
         name: '從板橋江子翠出發',
-        map: 'https://maps.app.goo.gl/Kh6t5w28PJ9BDkdr8',
+        map: 'https://www.google.com/maps/search/?api=1&query=板橋江子翠捷運站',
         coin: false,
         desc: '騎機車沿台3線南下，途經土城、三峽方向前往龍潭，約 40–45 公里，車程約 1–1.5 小時。建議早上出發避開車流。'
       },
       {
         time: '11:30–13:30',
         name: '綠野鄉村（石門活魚午餐）',
-        map: 'https://maps.app.goo.gl/YZ9HY7k3LNPNekRr6',
-        coin: false,
+        map: 'https://www.google.com/maps/search/?api=1&query=綠野鄉村+龍潭',
+        coin: true,
         desc: '抵達龍潭直奔石門活魚一級戰區，用澎湃的活魚料理與在地熱炒為旅程揭開序幕。機車好停，不用擔心停車問題。'
       },
       {
         time: '14:00–17:00',
         name: '雄獅文具－想像力製造所',
-        map: 'https://maps.app.goo.gl/L4sWoHJtFUYq8B2R6',
+        map: 'https://www.google.com/maps/search/?api=1&query=雄獅文具想像力製造所+龍潭',
         coin: false,
         desc: '騎機車約 15 分鐘即可抵達。在隱身於森林中的觀光工廠裡體驗現代美學與有趣的 DIY 手作，製作專屬的彩色筆。'
       },
       {
         time: '17:30–18:30',
         name: 'Check-in：中壢大飯店',
-        map: 'https://maps.app.goo.gl/XD2FKBaQqSCzPFUi9',
+        map: 'https://www.google.com/maps/search/?api=1&query=中壢大飯店+中壢區延平路645號',
         coin: false,
         desc: '騎機車從龍潭前往中壢市區約 25–30 分鐘。先到飯店停好車、放行李、稍作休息與梳洗。（中壢區延平路645號4樓）'
       },
       {
         time: '19:00–',
         name: '中壢新明夜市 ＆ 市區漫步',
-        map: 'https://maps.app.goo.gl/MXp1EuZ9y7ywR6kz6',
+        map: 'https://www.google.com/maps/search/?api=1&query=中壢新明夜市',
         coin: false,
         desc: '從飯店步行約 15–20 分鐘，或騎機車約 5 分鐘。必吃：簡師傅麻辣臭豆腐、溫記豆花、好鮮屋米粉湯、酸辣粉、地瓜球。'
       }
@@ -242,28 +243,28 @@ const days = [
       {
         time: '09:00–11:00',
         name: '三坑老街 ＆ 大平紅橋',
-        map: 'https://maps.app.goo.gl/ePpTsTPDpFT1BqDy7',
+        map: 'https://www.google.com/maps/search/?api=1&query=三坑老街+龍潭',
         coin: false,
         desc: '退房後騎機車南下龍潭約 20–25 分鐘。趁著早晨天氣涼爽，先到大平紅橋拍紅磚糯米橋綠意美照，再到三坑老街看「黑白洗」洗衫坑，感受百年客庄寧靜。機車可停老街入口停車場。'
       },
       {
         time: '11:30–13:30',
         name: '亨味食堂（客家料理）',
-        map: 'https://maps.app.goo.gl/bEWoLPyXJe7AeSNt8',
+        map: 'https://www.google.com/maps/search/?api=1&query=亨味食堂+龍潭+客家料理',
         coin: true,
         desc: '逛完老街後騎機車約 5–10 分鐘即到。「客家小炒全國爭霸賽」全國總冠軍！必點：白斬土雞、冠軍客家小炒、客家鹹湯圓。注意：週二公休。'
       },
       {
         time: '13:50–14:20',
         name: '知味花生軟糖（中正店）',
-        map: 'https://maps.app.goo.gl/Zi2e6NRbgRRN2Ydv9',
+        map: 'https://www.google.com/maps/search/?api=1&query=知味花生軟糖+龍潭中正店',
         coin: true,
         desc: '吃飽後騎機車順路停靠中正路，距離亨味食堂約 10 分鐘。香濃、充滿豆香且完全不黏牙的老字號花生軟糖，用剩餘客家幣換滿伴手禮帶回家。'
       },
       {
         time: '14:20–',
         name: '賦歸：騎台3線回板橋',
-        map: '',
+        map: 'https://www.google.com/maps/search/?api=1&query=板橋江子翠',
         coin: false,
         desc: '買完軟糖後沿台3線北上，原路騎回板橋江子翠，車程約 1–1.5 小時，順風輕鬆返家，結束充實的活魚與客家文創之旅！'
       }
@@ -274,7 +275,7 @@ const days = [
 function renderApp() {
   const app = document.getElementById('app');
   app.innerHTML = '';
-  days.forEach((day, di) => {
+  days.forEach((day) => {
     const block = document.createElement('div');
     block.className = `day-block ${day.cls}`;
 
@@ -336,7 +337,7 @@ function renderApp() {
         mapLink.href = stop.map;
         mapLink.target = '_blank';
         mapLink.rel = 'noopener noreferrer';
-        mapLink.innerHTML = '<i class="ti ti-map-pin" style="font-size:13px"></i> 地圖';
+        mapLink.innerHTML = '<i class="ti ti-map-pin" style="font-size:13px"></i> 開啟地圖';
         meta.appendChild(document.createElement('br'));
         meta.appendChild(mapLink);
       }
